@@ -1,0 +1,85 @@
+\documentclass[a4paper, 12pt]{article}
+
+% Paquetes necesarios
+\usepackage[utf8]{inputenc}  % Soporte UTF-8
+\usepackage[spanish]{babel} % Idioma español
+\usepackage{amsmath}        % Paquete matemático
+\usepackage{amssymb}        % Símbolos matemáticos adicionales
+\usepackage{geometry}       % Ajuste de márgenes
+\geometry{left=2.5cm, right=2.5cm, top=3cm, bottom=3cm}
+
+\title{\textbf{Optimización de Redes de Distribución Energética}}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{Contexto práctico}
+En una red de distribución energética de la UNE, 
+las subestaciones están interconectadas mediante 
+una red de líneas de transmisión. Cada línea tiene 
+un costo de mantenimiento (ponderación) y una 
+capacidad de transferencia energética. 
+Cuando ocurre un fallo en una línea de transmisión 
+(nada frecuente, por cierto), 
+la red debe reorganizarse dinámicamente (muy dinámico siempre) 
+para minimizar los costos de reparación y garantizar 
+que el suministro energético a las regiones más 
+críticas sea continuo (jaja yeah sure).
+
+El jefe de la UNE desea dividir la red en \( k \) 
+grupos independientes (subredes autónomas) durante 
+situaciones de mantenimiento o emergencias, 
+asegurándose de que la desconexión sea lo menos 
+costosa posible (en términos de la suma de los 
+costos de las líneas cortadas).
+
+Adicionalmente, al jefe de la UNE le llegó de las altas esferas
+la orientación de resolver otra tarea. 
+Se quiere garantizar que existan zonas priorizadas que 
+no sufran cortes de electricidad por su relevancia. 
+Estas zonas pueden incluir hospitales, instituciones importantes como el ICRT, 
+residencias de mandatarios (ya de paso jiji), entre otras. 
+Por ello, se plantea la necesidad de determinar la 
+cantidad mínima de aristas que deben removerse para 
+obtener al menos una componente conexa con 
+exactamente \( t \) nodos, representando estas zonas 
+priorizadas.
+
+\section*{Formalización del problema}
+Dado un grafo ponderado \( G = (V, E) \), donde:
+\begin{itemize}
+    \item \( V \): Conjunto de nodos que representan subestaciones.
+    \item \( E \): Conjunto de aristas que representan líneas de transmisión, cada una con un costo \( w(e) \) asociado.
+    \item \( k \): Número de subredes requeridas.
+    \item \( S = \{s_1, s_2, \dots, s_k\} \subseteq V \): Subestaciones críticas que deben quedar separadas entre las \( k \) subredes.
+    \item \( t \): Tamaño de la componente priorizada.
+\end{itemize}
+
+\noindent \textbf{Problemas}:
+\begin{enumerate}
+    \item Encontrar un conjunto mínimo de aristas \( E' \subseteq E \) tal que al eliminar \( E' \):
+    \begin{enumerate}
+        \item \( G \) se divide en \( k \) componentes conexos.
+        \item Cada subestación crítica \( s_i \) pertenece a una componente diferente.
+        \item La suma de los costos de las aristas eliminadas \( \sum_{e \in E'} w(e) \) es mínima.
+    \end{enumerate}
+    \item Determinar la cantidad mínima de aristas a remover del grafo \( G \) tal que quede al menos una componente conexa con exactamente \( t \) nodos.
+\end{enumerate}
+
+\section*{Estrategias de solución}
+\begin{enumerate}
+    \item \textbf{Demostración de NP-Complejidad}: 
+    Demostrar que la primera parte del problema es \textbf{NP-completo}, utilizando una reducción al problema \textit{Max-Clique}.
+    \item \textbf{Reducción a árboles y solución greedy}: 
+    Reducir la primera parte del problema a árboles y diseñar una solución greedy con complejidad \( O(n \log n) \).
+    \item \textbf{Algoritmos de aproximación con flujo}: 
+    Proponer algoritmos de aproximación basados en técnicas de flujo para resolver la primera parte del problema en grafos generales.
+    \item \textbf{Reducción de la segunda parte del problema a árboles}: 
+    Reducir la segunda parte del problema a árboles y resolverlo utilizando programación dinámica.
+\end{enumerate}
+
+
+\end{document}
