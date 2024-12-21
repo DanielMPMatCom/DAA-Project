@@ -23,11 +23,11 @@ una red de líneas de transmisión. Cada línea tiene
 un costo de mantenimiento (ponderación) y una 
 capacidad de transferencia energética. 
 Cuando ocurre un fallo en una línea de transmisión 
-(nada frecuente, por cierto), 
-la red debe reorganizarse dinámicamente (muy dinámico siempre) 
+\footnote{Nada frecuente, por cierto.}, 
+la red debe reorganizarse dinámicamente \footnote{Muy dinámico siempre.} 
 para minimizar los costos de reparación y garantizar 
 que el suministro energético a las regiones más 
-críticas sea continuo (jaja yeah sure).
+críticas sea continuo \footnote{jaja yeah sure.}.
 
 El jefe de la UNE desea dividir la red en \( k \) 
 grupos independientes (subredes autónomas) durante 
@@ -41,7 +41,7 @@ la orientación de resolver otra tarea.
 Se quiere garantizar que existan zonas priorizadas que 
 no sufran cortes de electricidad por su relevancia. 
 Estas zonas pueden incluir hospitales, instituciones importantes como el ICRT, 
-residencias de mandatarios (ya de paso jiji), entre otras. 
+residencias de mandatarios \footnote{ya de paso jiji}, entre otras. 
 Por ello, se plantea la necesidad de determinar la 
 cantidad mínima de aristas que deben removerse para 
 obtener al menos una componente conexa con 
@@ -54,7 +54,6 @@ Dado un grafo ponderado \( G = (V, E) \), donde:
     \item \( V \): Conjunto de nodos que representan subestaciones.
     \item \( E \): Conjunto de aristas que representan líneas de transmisión, cada una con un costo \( w(e) \) asociado.
     \item \( k \): Número de subredes requeridas.
-    \item \( S = \{s_1, s_2, \dots, s_k\} \subseteq V \): Subestaciones críticas que deben quedar separadas entre las \( k \) subredes.
     \item \( t \): Tamaño de la componente priorizada.
 \end{itemize}
 
@@ -63,22 +62,21 @@ Dado un grafo ponderado \( G = (V, E) \), donde:
     \item Encontrar un conjunto mínimo de aristas \( E' \subseteq E \) tal que al eliminar \( E' \):
     \begin{enumerate}
         \item \( G \) se divide en \( k \) componentes conexos.
-        \item Cada subestación crítica \( s_i \) pertenece a una componente diferente.
         \item La suma de los costos de las aristas eliminadas \( \sum_{e \in E'} w(e) \) es mínima.
     \end{enumerate}
     \item Determinar la cantidad mínima de aristas a remover del grafo \( G \) tal que quede al menos una componente conexa con exactamente \( t \) nodos.
 \end{enumerate}
 
-\section*{Estrategias de solución}
+\section*{Trabajo propuesto \footnote{ATENCIÓN SPOILERS}}
 \begin{enumerate}
-    \item \textbf{Demostración de NP-Complejidad}: 
-    Demostrar que la primera parte del problema es \textbf{NP-completo}, utilizando una reducción al problema \textit{Max-Clique}.
+    \item \textbf{Demostración de NP-Completitud}: 
+    Se propone una demostración de que la primera parte del problema es \textbf{NP-Completo}, utilizando una reducción al problema \textit{Max-Clique}.
     \item \textbf{Reducción a árboles y solución greedy}: 
-    Reducir la primera parte del problema a árboles y diseñar una solución greedy con complejidad \( O(n \log n) \).
-    \item \textbf{Algoritmos de aproximación con flujo}: 
-    Proponer algoritmos de aproximación basados en técnicas de flujo para resolver la primera parte del problema en grafos generales.
+    Se piensa reducir la primera parte del problema a árboles y diseñar una solución greedy con complejidad \( O(n \log n) \).
+    \item \textbf{Algoritmo de aproximación con flujo}: 
+    Se tiene la idea de proponer un algoritmo de aproximación basado en técnicas de flujo para resolver la primera parte del problema en grafos generales.
     \item \textbf{Reducción de la segunda parte del problema a árboles}: 
-    Reducir la segunda parte del problema a árboles y resolverlo utilizando programación dinámica.
+    Se quiere reducir la segunda parte del problema a árboles y resolverlo utilizando programación dinámica, con demostración de complejidad \( O(n^2) \).
 \end{enumerate}
 
 
