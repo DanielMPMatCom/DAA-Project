@@ -24,10 +24,10 @@ un costo de mantenimiento (ponderación) y una
 capacidad de transferencia energética. 
 Cuando ocurre un fallo en una línea de transmisión 
 \footnote{Nada frecuente, por cierto.}, 
-la red debe reorganizarse dinámicamente \footnote{Muy dinámico siempre.} 
+la red debe reorganizarse dinámicamente 
 para minimizar los costos de reparación y garantizar 
 que el suministro energético a las regiones más 
-críticas sea continuo \footnote{jaja yeah sure.}.
+críticas sea continuo \footnote{Qué buen chiste.}.
 
 El jefe de la UNE desea dividir la red en \( k \) 
 grupos independientes (subredes autónomas) durante 
@@ -41,7 +41,7 @@ la orientación de resolver otra tarea.
 Se quiere garantizar que existan zonas priorizadas que 
 no sufran cortes de electricidad por su relevancia. 
 Estas zonas pueden incluir hospitales, instituciones importantes como el ICRT, 
-residencias de mandatarios \footnote{ya de paso jiji}, entre otras. 
+residencias de mandatarios... 
 Por ello, se plantea la necesidad de determinar la 
 cantidad mínima de aristas que deben removerse para 
 obtener al menos una componente conexa con 
@@ -67,16 +67,54 @@ Dado un grafo ponderado \( G = (V, E) \), donde:
     \item Determinar la cantidad mínima de aristas a remover del grafo \( G \) tal que quede al menos una componente conexa con exactamente \( t \) nodos.
 \end{enumerate}
 
+\section*{Justificación del Problema}
+
+El problema que planteamos tiene una relevancia práctica evidente y un interés computacional significativo, como se detalla a continuación:
+
+\subsection*{Importancia Práctica}
+\begin{itemize}
+    \item \textbf{Gestión de Redes Energéticas:} Las redes de transmisión eléctrica son infraestructuras críticas en cualquier sociedad moderna. Garantizar que dichas redes sean resilientes a fallos y puedan reorganizarse eficientemente en situaciones de emergencia o mantenimiento es fundamental para asegurar la continuidad del suministro eléctrico. Este problema no solo aborda la minimización de costos económicos asociados con los cortes, sino también prioriza el suministro de energía a zonas críticas como hospitales, instituciones públicas relevantes o residencias estratégicas.
+    \item \textbf{Seguridad y Resiliencia:} Dividir la red en \(k\) subredes autónomas durante emergencias no solo reduce los costos, sino que fortalece la seguridad al evitar apagones masivos. Además, identificar las aristas mínimas necesarias para garantizar una subred priorizada permite planificar contingencias con antelación.
+\end{itemize}
+
+\subsection*{Interés Computacional}
+\begin{itemize}
+    \item \textbf{Complejidad Algorítmica:} El problema presenta retos importantes desde el punto de vista computacional. Dividir un grafo ponderado en \(k\) subcomponentes conexas con costo mínimo, así como garantizar subredes priorizadas, son problemas que combinan técnicas avanzadas de análisis de grafos, optimización y conectividad.
+    \item \textbf{Modelación Compleja:} Formalizar este problema implica trabajar con múltiples restricciones, como los costos de las aristas, cardinalidad de componentes conexas y prioridades en nodos específicos. Estos desafíos hacen que sea ideal para aplicar y demostrar habilidades avanzadas de diseño y análisis algorítmico.
+\end{itemize}
+
+\subsection*{Aplicaciones Generales}
+El problema general de partición de grafos tiene aplicaciones relevantes en múltiples dominios. Entre las más destacadas se encuentran las siguientes:
+\begin{itemize}
+    \item \textbf{Particionamiento y Clustering:} La partición de grafos es una técnica ampliamente utilizada en el análisis de datos. En este contexto, las similitudes entre objetos se modelan como una matriz de adyacencia ponderada, que contiene la información necesaria para realizar agrupamientos óptimos.
+    \item \textbf{Confiabilidad de Redes:} Determinar la conectividad mínima de una red es esencial en el diseño y análisis de redes confiables. Las aplicaciones incluyen redes de telecomunicaciones, diseño de infraestructura crítica y sistemas distribuidos.
+    \item \textbf{Algoritmos de Optimización:} Los cálculos de cortes mínimos son fundamentales en algoritmos de eliminación de subtours para resolver problemas combinatorios como el \textit{Traveling Salesman Problem} (TSP). Este enfoque ha demostrado ser clave en algoritmos basados en planos de corte para problemas de grafos conexos.
+    \item \textbf{Diseño de Circuitos y CAD:} En diseño de circuitos integrados (VLSI), la partición eficiente de circuitos es un paso crucial en herramientas de diseño asistido por computadora (CAD). Esta técnica también se utiliza en modelos de optimización a gran escala y problemas de elementos finitos.
+    \item \textbf{Compiladores para Lenguajes Paralelos:} En compiladores de lenguajes paralelos, la partición de grafos optimiza la distribución de operaciones del programa en arquitecturas de memoria distribuida, mejorando la eficiencia computacional.
+    \item \textbf{Modelos Físicos y Visión Computacional:} Los problemas de partición y corte en grafos también aparecen en la resolución de modelos físicos como los \textit{spin glass models}, en programación cuadrática 0-1 sin restricciones, y en problemas de segmentación de imágenes, donde las aristas modelan relaciones entre píxeles adyacentes.
+\end{itemize}
+
+\subsection*{Segunda Parte del Problema: Subred Priorizada}
+Un aspecto crucial del problema es la identificación de las aristas mínimas necesarias para garantizar que una subred específica, considerada prioritaria, permanezca operativa en situaciones de emergencia. Esto tiene aplicaciones concretas como:
+\begin{itemize}
+    \item \textbf{Planificación de Contingencias:} En sistemas críticos, como redes eléctricas o de telecomunicaciones, es esencial garantizar que ciertas áreas estratégicas sigan operativas. Por ejemplo, hospitales, estaciones de emergencia y centros de comando requieren una conexión continua incluso en escenarios de fallo masivo.
+    \item \textbf{Optimización de Recursos:} La identificación de aristas mínimas permite optimizar los recursos disponibles, como redundancias de red, mantenimiento preventivo y planificación de reparaciones, reduciendo los costos operativos.
+    \item \textbf{Resiliencia en Infraestructuras Críticas:} El diseño de infraestructuras resilientes exige priorizar las conexiones más críticas dentro de la red. Este enfoque no solo mejora la robustez general, sino que también asegura una recuperación más rápida y eficiente ante eventos adversos.
+\end{itemize}
+
+La solución de esta parte del problema se basa en un análisis detallado de la conectividad de la red, utilizando técnicas avanzadas de teoría de grafos y algoritmos de optimización para garantizar que las restricciones se cumplan con el menor costo posible.
+
+
 \section*{Trabajo propuesto \footnote{ATENCIÓN SPOILERS}}
 \begin{enumerate}
     \item \textbf{Demostración de NP-Completitud}: 
-    Se propone una demostración de que la primera parte del problema es \textbf{NP-Completo}, utilizando una reducción al problema \textit{Max-Clique}.
+    Demostración de que la primera parte del problema es \textbf{NP-Completo}, utilizando una reducción al problema \textit{Max-Clique}.
     \item \textbf{Reducción a árboles y solución greedy}: 
-    Se piensa reducir la primera parte del problema a árboles y diseñar una solución greedy con complejidad \( O(n \log n) \).
+    Reducción de la primera parte del problema a árboles y diseñar una solución greedy con complejidad \( O(n \log n) \).
     \item \textbf{Algoritmo de aproximación con flujo}: 
-    Se tiene la idea de proponer un algoritmo de aproximación basado en técnicas de flujo para resolver la primera parte del problema en grafos generales.
+    Proponer un algoritmo de aproximación basado en técnicas de flujo para resolver la primera parte del problema en grafos generales.
     \item \textbf{Reducción de la segunda parte del problema a árboles}: 
-    Se quiere reducir la segunda parte del problema a árboles y resolverlo utilizando programación dinámica, con demostración de complejidad \( O(n^2) \).
+    Reducir la segunda parte del problema a árboles y resolverlo utilizando un increible algoritmo de programación dinámica, con una demostración de complejidad \( O(n^2) \) inesperada.
 \end{enumerate}
 
 
