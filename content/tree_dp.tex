@@ -1,0 +1,97 @@
+\section{Enunciado del problema}
+
+Dado un árbol con $N$ nodos, calcular para todo $K \leq N$ el mínimo número de aristas a ser
+cortadas tal que quede una componente conexa con exactamente $K$ nodos. 
+
+\section{Solución}
+
+Resolvamos el problema utilizando programación dinámica. Rootiemos el árbol $T$, llamemos $T_u$ al subárbol del nodo $u$.
+Formulemos nuestra DP de la siguiente forma: 
+
+Sea $dp[u][i]$ la mínima cantidad de aristas que hay que eliminar del árbol para obtener una componente conexa en $T_u$
+que contenga al nodo $u$ y sea de tamaño $i$.
+Es trivial que teniendo este arreglo rellenado podemos calcular la solución para cada $K$ en $O(N)$.
+
+Veamos cómo calcular esta DP. 
+Denotemos $T_u^{j}$ como el árbol $T_u$ pero conteniendo solo sus $j$ primeros hijos y sus subárboles.
+
+Llamemos $dp_j[u][i]$ el valor de $dp[u][i]$ en $T_u^{j}$, lo cual es básicamente habiendo procesado los $j$ primeros hijos de $u$.
+La idea es calcular $dp_h[u][i]$ donde $h$ es la cantidad de nodos hijos de $u$, es decir, $h = | \{v_1,v_2,v_3,\dots,v_h\} |$ donde $v_i$ es el hijo $i$-ésimo de $u$$$.
+
+Empezamos con $j=0$, en ese caso $u$ es tomado como una hoja en $T_u^{j}$, así que $dp_j[u][1] = 0$.
+Luego computamos los valores de $dp_j[u][i]$ siguiendo la siguiente fórmula:
+
+\[
+dp_j[u][i] = \min \left( dp_{j-1}[u][i] + 1, \min_{\substack{a+b=i \\  a, b \geq 1}} (dp_{j-1}[u][a] + dp[v_j][b]) \right)
+\]
+
+Lo cual es básicamente tomar el mínimo entre: 
+\begin{itemize}
+    \item Cortar la arista hacia el $j$-ésimo hijo de $u$. 
+    \item El mínimo para todo $a, b$ de tener $a$ nodos en $T_u^{j-1}$ y tener $b$ nodos en el subárbol del $j$-ésimo hijo de $u$.
+\end{itemize}
+
+\section{Análisis de complejidad}
+
+\subsection{Cota máxima del algoritmo}
+
+Podríamos establecer una cota máxima de $O(N^3)$ para nuestro algoritmo, ya que para cada nodo $u$,
+debemos llenar todos los valores de $i$ en $dp[u][i]$, y para hacer esto tenemos que recorrer todas las posibles
+particiones $a, b$ tal que $a + b = i$. Sin embargo, podemos encontrar una mejor cota.
+
+\subsection{Enunciado}
+
+Para un nodo fijo $u$, el número de operaciones necesarias para computar todos los valores de 
+$dp[v][:]$ donde $v$ es un nodo que pertenece a $T_u$ es $O(|T_u|^2)$.
+
+\subsection{Demostración}
+
+Demostremos este resultado por inducción sobre la profundidad del árbol $T_u$. 
+
+\begin{itemize}
+    \item Caso base: Si $T_u$ es una hoja, el lema se cumple trivialmente, ya que solo necesitamos $O(1)$ operaciones.
+    \item Paso inductivo: Supongamos que el nodo $u$ tiene $h$ hijos, denotados como $v_1, v_2, \dots, v_h$, y definamos $a_j = |T_{v_j}|$.
+    
+    Al fusionar el $j$-ésimo hijo, es decir, al calcular $dp_j[u][:]$, recorremos todos los valores de $dp_{j-1}[u][a]$ y 
+    $dp[v_j][b]$ para todo $a$ y $b$. Sin embargo, el valor de $a$ puede ser escogido en $|T_u^{j-1}|$ formas y el de $b$ en 
+    $|T_{v_j}|$ formas, lo que nos da un número total de operaciones:
+
+    \[
+    O(|T_u^{j-1}| \cdot |T_{v_j}|) = O\left( (1 + a_1 + a_2 + \dots + a_{j-1}) \cdot a_j \right)
+    \]
+
+    Por la hipótesis de inducción, calcular todos los valores de $dp$ para los nodos en el subárbol de $u$ tomará:
+
+    \[
+    O\left( \sum_{j=1}^{h} a_j^2 \right)
+    \]
+
+    Sumando el número de operaciones necesarias para calcular los valores de $dp[v][:]$ para todos los vértices $v$ pertenecientes a $T_u$, obtenemos:
+
+    \[
+    O\left( \sum_{i=1}^{h} \sum_{j=1}^{h} a_i \cdot a_j + \sum_{j=1}^{h} a_j + \sum_{j=1}^{h} a_j^2 \right)
+    \]
+
+    Como el primer término es una doble sumatoria sobre los tamaños de los subárboles, podemos agrupar los términos para obtener:
+
+    \[
+    O\left( \left( 1 + \sum_{j=1}^{h} a_j \right)^2 \right) = O(|T_u|^2)
+    \]
+
+\end{itemize}
+
+\subsection{Demostración combinatoria alternativa}
+
+También podemos obtener una demostración combinatoria del enunciado. Al fusionar un subárbol se realizan:
+
+\[
+O(|T_u^{j-1}| \cdot |T_{v_j}|)
+\]
+
+operaciones. Esto se puede interpretar como el número de pares de nodos que tienen a $u$ como su ancestro común más cercano (LCA).
+Como cualquier par de nodos tiene un único LCA, cada par se cuenta una sola vez, lo que nos lleva a una cota total de:
+
+\[
+O(N^2)
+\]
+
