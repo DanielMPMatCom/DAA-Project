@@ -1,3 +1,36 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{fullpage}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\lstset{
+    basicstyle=\ttfamily\small,
+    numbers=left,
+    numberstyle=\tiny,
+    stepnumber=1,
+    numbersep=10pt,
+    frame=single,
+    breaklines=true,
+    language=C,
+    captionpos=b,
+    tabsize=4,
+    showstringspaces=false,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{green!50!black},
+    stringstyle=\color{red},
+}
+
+\title{daa}
+\author{Leonardo Artiles Montero}
+\date{February 2025}
+
+\begin{document}
+
 \section{Enunciado del problema}
 
 Dado un árbol con $N$ nodos, calcular para todo $K \leq N$ el mínimo número de aristas a ser
@@ -95,3 +128,123 @@ Como cualquier par de nodos tiene un único LCA, cada par se cuenta una sola vez
 O(N^2)
 \]
 
+\section{Demostración de Correctitud}
+
+Sea un árbol \(T\) con \(N\) nodos y sea \(T_u\) el subárbol enraizado en el nodo \(u\). Para cada nodo \(u\) y para cada entero \(i\) en \(1,\dots,|T_u|\), definimos $dp[u][i]$ como el mínimo número de aristas a cortar en  $T_u$ para obtener una componente conexa de tamaño $i$ que contiene a  $u$.
+Además, al procesar el nodo \(u\) consideramos sus hijos en un orden fijo y definimos \(T_u^j\) como el árbol formado por \(u\) y los subárboles de sus primeros \(j\) hijos. Sea
+\[
+dp_j[u][i] = \text{costo mínimo en } T_u^j \text{ para obtener una componente conexa de tamaño } i \text{ que contiene a } u.
+\]
+El caso base es \(j=0\), donde el único nodo es \(u\), de modo que
+\[
+dp_0[u][1] = 0,
+\]
+y para \(i \neq 1\) se establece \(dp_0[u][i] = +\infty\) (o un valor que indique imposibilidad).
+
+Procedemos a demostrar la correctitud mediante doble inducción: primero sobre el número de hijos procesados (índice \(j\)) y luego sobre la estructura del árbol.
+
+\subsection*{1. Inducción sobre la fusión de hijos en \(u\)}
+
+\textbf{Caso base:} Con \(j=0\), el subárbol parcial \(T_u^0\) consiste únicamente en \(u\); por lo tanto,
+\[
+dp_0[u][1] = 0,
+\]
+lo cual es correcto.
+
+\textbf{Paso inductivo:}  
+Supongamos que para cierto \(j-1\) la tabla \(dp_{j-1}[u][\cdot]\) calcula correctamente el costo mínimo para cada tamaño \(i\) en el subárbol \(T_u^{j-1}\). Sea \(v_j\) el \(j\)-ésimo hijo de \(u\). Al incorporar el subárbol \(T_{v_j}\), se tienen dos opciones:
+\begin{enumerate}
+    \item \textbf{No incluir \(T_{v_j}\):}  
+    Se corta la arista \((u,v_j)\) y se conserva el estado anterior, con un costo adicional de 1:
+    \[
+    dp_j[u][i] \le dp_{j-1}[u][i] + 1.
+    \]
+    \item \textbf{Fusionar \(T_{v_j}\):}  
+    Se toma una componente en \(T_u^{j-1}\) de tamaño \(a\) (con costo \(dp_{j-1}[u][a]\)) y una componente en \(T_{v_j}\) de tamaño \(b\) (con costo \(dp[v_j][b]\)); al fusionarlas se obtiene una componente de tamaño \(a+b\) con costo:
+    \[
+    dp_j[u][a+b] \le dp_{j-1}[u][a] + dp[v_j][b].
+    \]
+\end{enumerate}
+
+Por lo tanto, para cada \(i\) se tiene:
+\[
+dp_j[u][i] = \min \Biggl\{\, dp_{j-1}[u][i] + 1,\; \min_{\substack{a+b=i \\ a,b\ge1}} \Bigl( dp_{j-1}[u][a] + dp[v_j][b] \Bigr) \,\Biggr\}.
+\]
+Dado que, por hipótesis inductiva, \(dp_{j-1}[u][\cdot]\) y \(dp[v_j][\cdot]\) son correctos, la fusión produce correctamente \(dp_j[u][\cdot]\) en \(T_u^j\).
+
+Al procesar todos los hijos de \(u\) (es decir, \(j=h\), donde \(h\) es el número total de hijos de \(u\)), se obtiene:
+\[
+dp_h[u][\cdot] = dp[u][\cdot],
+\]
+lo que demuestra la corrección del estado \(dp[u][\cdot]\) en \(T_u\).
+
+\subsection*{2. Inducción en la estructura del árbol}
+
+Asumiendo que para cada hijo \(v\) de \(u\) la tabla \(dp[v][\cdot]\) es correcta, el proceso de fusión en \(u\) descrito anteriormente garantiza que \(dp[u][\cdot]\) se calcula correctamente. Por inducción sobre la estructura del árbol, la DP es correcta para todo el árbol \(T\).
+
+\bigskip
+
+\section{Pseudocódigo en \(\boldsymbol{O(N^2)}\)}
+
+A continuación se presenta el pseudocódigo que implementa la solución mediante DFS y fusión de estados. Se aprovecha que, al fusionar el estado del nodo \(u\) (de tamaño \(\text{size}[u]\)) con el del hijo \(v\) (de tamaño \(\text{size}[v]\)), se realizan \(\text{size}[u] \times \text{size}[v]\) operaciones, y gracias a la propiedad combinatoria (cada par de nodos se fusiona una única vez, correspondiente a su LCA) la complejidad total es \(O(N^2)\).
+
+\begin{lstlisting}[caption={Pseudocódigo en \(O(N^2)\)}]
+// Constante que representa un valor "infinito"
+const INF = infinito;  
+
+// dp[u][i]: Costo minimo para obtener una componente conexa de tamaño i en T_u que contiene a u.
+// size[u]: Tamano actual del arreglo dp[u] (inicialmente 1, pues solo se cuenta el nodo u).
+
+procedure DFS(u, parent)
+    // Inicializar dp[u] con el caso base: solo el nodo u.
+    dp[u] := array[1 ... (tamano maximo posible)] of INF;
+    dp[u][1] := 0;
+    size[u] := 1;
+
+    // Procesar cada hijo v de u (evitando regresar al padre)
+    for each v in vecinos(u) do
+        if v == parent then continue;
+        DFS(v, u);
+
+        // Preparar un nuevo arreglo para fusionar dp[u] y dp[v]
+        newSize := size[u] + size[v];
+        newDP := array[1 ... newSize] of INF;
+
+        // Opcion 1: No fusionar v (cortar la arista (u,v))
+        for i from 1 to size[u] do
+            newDP[i] := min(newDP[i], dp[u][i] + 1);
+        end for;
+
+        // Opcion 2: Fusionar el subarbol de v sin cortar (usar dp[v])
+        for i from 1 to size[u] do
+            for j from 1 to size[v] do
+                newDP[i + j] := min(newDP[i + j], dp[u][i] + dp[v][j]);
+            end for;
+        end for;
+
+        // Actualizar dp[u] y su tamano
+        size[u] := newSize;
+        dp[u] := newDP;
+    end for;
+end procedure;
+
+// Funcion principal: se asume que el arbol tiene N nodos.
+procedure Main()
+    // Se asume que el arbol esta almacenado en una lista de adyacencia: G.
+    // Se elige un nodo arbitrario como raiz, por ejemplo, 1.
+    DFS(1, NIL);
+
+    // Actualizar la respuesta global para cada tamano K.
+    // La solucion final es el minimo dp[u][K] entre todos los nodos u.
+    answer := array[1 ... N] of INF;
+    for each nodo u de 1 a N do
+        for k from 1 to size[u] do
+            answer[k] := min(answer[k], dp[u][k]);
+        end for;
+    end for;
+
+    // Imprimir o retornar la respuesta para cada K = 1, 2, …, N.
+end procedure;
+\end{lstlisting}
+
+\end{document}
