@@ -1,0 +1,132 @@
+\documentclass[a4paper,12pt]{article}
+
+% Language and input encoding
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+
+% Math packages
+\usepackage{amsmath, amssymb, amsthm}
+
+% Graphics and hyperlinks
+\usepackage{graphicx}
+\usepackage{hyperref}
+
+% Page layout
+\usepackage{geometry}
+\geometry{margin=1in}
+
+% Custom commands
+\newtheorem{definition}{Definición}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Lema}[section]
+\newtheorem{proposition}{Proposición}[section]
+
+\title{\textbf{Demostraciones de NP-Completitud del problema de partición de grafos}} 
+\author{Daniel Machado Pérez \\
+Diseño y Análisis de Algoritmos}
+\date{}
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+
+
+
+\section{Demostración de que el problema de decisión es NP-Completo}
+
+El problema de decisión se puede definir de la 
+siguiente manera: \\
+
+\textbf{Entrada:} Un grafo \( G = (V, E) \), un número entero positivo \( k \), 
+una función no negativa de pesos sobre las aristas $w(e)$ 
+y un umbral \( M \).\\
+
+\textbf{Pregunta:} Determinar si es posible 
+particionar \( G \) en \( k \) componentes conexas de 
+manera que la suma de los pesos de las aristas que conectan nodos de 
+componentes conexas distintas sea a lo sumo \( M \).\\
+
+Por simplicidad, en lo siguiente llamaremos $P-decision$ a este problema. 
+
+\subsection{Pertenencia a NP}
+
+Para verificar si $P-decision$ pertenece a NP, 
+se necesita demostrar que cualquier solución candidata 
+puede ser verificada en tiempo polinomial.
+
+Dado un grafo \( G = (V, E) \), una partición de los 
+vértices en \( k \) subconjuntos $S_1, S_2, \ldots, S_k$ y un 
+umbral \( M \), se puede verificar en tiempo 
+polinomial si la solución es válida de la siguiente 
+manera:
+
+\begin{itemize}
+    \item Comprobar que la partición es válida, es decir, que cada $S_i$ es no vacío, la unión de todos los $S_i$ es $V$ y las intersecciones son vacías $(S_i \cap  S_j = \emptyset$ para $ i \neq j)$. Esto se puede realizar en tiempo \( O(|V|) \) usando estructuras para marcar vértices visitados.
+    \item Comprobar que cada subconjunto $S_i$ es una componente conexa. Esto se puede hacer con BFS/DFS en complejidad $O(|V|+|E|)$.
+    \item Comprobar que la suma de los pesos de las aristas que cruzan componentes conexas es menor o igual que $M$. Esto se resuelve iterando por todas las aristas, y si una arista involucra vértices de subconjuntos distintos, se suma $w(e)$ al total. Al final se verifica si $w(e) \leq M$. La complejidad es $O(|E|)$.
+\end{itemize}
+
+Dado que cada paso se puede realizar en tiempo polinomial, $P-decision$ pertenece a NP.
+
+\subsection{NP-Hardness}
+Procederemos a demostrar que $P-decision$ es 
+NP-Hard mediante una reducción polinomial desde el 
+problema de decisión de \textbf{Clique Máximo}, que es NP-Completo.\\
+
+Recordemos la definición de \textbf{Clique Máximo}:\\
+\textbf{Entrada:} Un grafo no dirigido $G = (V, E)$ y $ M \in \mathbb{Z}^{+}$\\
+\textbf{Pregunta:} Determinar si existe un clique en $G$ de tamaño mayor o igual que $M$.
+
+\subsubsection{Reducción desde Clique Máximo}
+
+\begin{proof}
+    
+
+
+Consideremos un grafo no dirigido con pesos de $\{0,1\}$ en las aristas. 
+Encontrar la mínima configuración de aristas que al ser eliminadas particionan 
+el grafo en $k$ componentes conexas, es equivalente a maximizar la cantidad de aristas 
+dentro de cada componente conexa. Supongamos que $G$ tiene un clique $H$ de tamaño $M = |V| - (k-1)$.
+Entonces el número de aristas entre cualquier vértice $v \notin H$ y $u \in H$ es menor que la 
+cantidad de aristas entre vértices dentro de $H$, pues en un clique hay una arista entre cualquier
+par de vértices:
+
+
+\[
+    \sum_{u \in H, v \notin H}w(e_{uv}) < \sum_{u \in H, v \in H} w(e_{uv})
+\]
+
+Entonces cuando se divide el grafo en $k$ particiones con una cantidad mínima de aristas de cruce entre componentes conexas, el clique $H$ debe ser una de esas componentes.
+
+$\Rightarrow$ El problema de decisión de \textbf{Clique Máximo} puede reducirse en tiempo polinomial a $P-decision$. \\
+Como se sabe que \textbf{Clique Máximo} es NP-Completo $\Rightarrow$ $P-decision$ es NP-Hard.
+
+\end{proof}
+
+\subsection{NP-Completitud}
+
+Dado que $P-decision$ pertenece a NP y es NP-Hard, concluimos que es NP-Completo. $\blacksquare$
+
+
+\section{Demostración de que el problema de optimización es NP-Hard}
+
+El problema de optimización se puede definir de la siguiente manera:\\
+
+\textbf{Entrada:} Un grafo \( G = (V, E) \), un número entero positivo \( k \) y 
+una función no negativa de pesos sobre las aristas $w(e)$.\\
+
+\textbf{Salida:} Encontrar una partición de \( G \) en \( k \) componentes conexas de manera que 
+la suma de los pesos de las aristas que conectan nodos de componentes conexas distintas es mínima.\\
+
+Por simplicidad, en lo siguiente llamaremos $P-optimization$ a este problema. 
+
+\subsection{NP-Hardness}
+
+\begin{proof}
+    Como se conoce que dado un problema, si su variante de decisión es NP-Completo entonces su variante de optimización es NP-Hard, y se demostró que $P-decision$ es NP-Completo $\Rightarrow$ $P-optimization$ es NP-Hard.
+\end{proof}
+
+
+\end{document}
