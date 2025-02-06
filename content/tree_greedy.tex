@@ -7,7 +7,7 @@
 \usepackage{geometry}
 \geometry{a4paper, margin=1in}
 
-\title{Demostración de correctitud de un algoritmo Greedy para resolver el Problema}
+\title{Solución de subproblemas con estrategia Greedy}
 \author{}
 \date{}
 
@@ -16,11 +16,11 @@
 \maketitle
 
 
+\section{Algoritmos Greedy propuestos}
 
+\section{Demostración de correctitud}
 
-
-
-\section{Para el caso en que el grafo es un árbol}
+\subsection{Para el caso en que el grafo es un árbol}
 
 Recordemos que, en un árbol, al eliminar ciertas aristas se incrementa el número de componentes conexas.
 
@@ -43,7 +43,7 @@ Por la hipótesis de inducción, removiendo \( n_1 - 1 \) aristas de \( T_1 \) s
 En total, removiendo \( 1 + (n_1 - 1) + (n_2 - 1) = n_1 + n_2 - 1 = k - 1 \) aristas, obtenemos \( n_1 + n_2 = k \) componentes conexas.  
 \end{proof}
 
-\begin{lemma}[Corte mínimo \( k \) en un árbol]
+\begin{lemma}
 Sea \( T = (V, E) \) un árbol con pesos no negativos en sus aristas, y sea la lista de aristas ordenada de forma no decreciente según sus pesos:
 \[
 w(e_1) \le w(e_2) \le \dots \le w(e_{n-1}).
@@ -65,7 +65,7 @@ Esto contradice la hipótesis de que \( w(C') < w(C) \), por lo que \( C \) debe
 Sobre árboles, el problema se puede resolver en tiempo polinomial, ya que basta con ordenar las aristas (lo cual se puede hacer en tiempo \( O(n \log n) \)) y seleccionar las \( k-1 \) aristas de menor peso.
 \end{corollary}
 
-\section{Para el caso en que el grafo es un bosque}
+\subsection{Para el caso en que el grafo es un bosque}
 
 Consideremos ahora un bosque, es decir, un grafo disconexo cuyos componentes son árboles.
 
@@ -102,10 +102,12 @@ C = \{ e_1, e_2, \dots, e_{k-t} \}.
 \begin{proof}
 Supongamos, para obtener una contradicción, que existe un conjunto \( C' \) de aristas con \( |C'| < k-t \) y \( w(C') < w(C) \) que, al removerlas, divide el bosque en \( k \) componentes conexas.  
 Sin embargo, según la proposición anterior, remover menos de \( k-t \) aristas en un bosque con \( t \) componentes produce menos de \( k \) componentes conexas.  
-Esto contradice la definición de corte mínimo \( k \), que debe separar el bosque en exactamente \( k \) componentes.  
-Por lo tanto, \( C \) es el conjunto de aristas de menor peso cuya remoción divide \( F \) en \( k \) componentes conexas.
+Esto contradice la definición de $C'$.  
+Por lo tanto, \( C \) es el conjunto de aristas de menor peso cuya eliminación divide \( F \) en \( k \) componentes conexas.
 \end{proof}
 
+
+\section{Pseudocódigo}
 
 
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2024.3.14)  6 FEB 2025 14:59
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2024.3.14)  6 FEB 2025 15:20
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -189,15 +189,15 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] (build/tree_greedy.aux) ) 
 Here is how much of TeX's memory you used:
- 2163 strings out of 483121
- 28215 string characters out of 5964354
- 264904 words of memory out of 5000000
- 17203 multiletter control sequences out of 15000+600000
- 541141 words of font info for 58 fonts, out of 8000000 for 9000
+ 2164 strings out of 483121
+ 28232 string characters out of 5964354
+ 264874 words of memory out of 5000000
+ 17204 multiletter control sequences out of 15000+600000
+ 541448 words of font info for 59 fonts, out of 8000000 for 9000
  40 hyphenation exceptions out of 8191
  30i,4n,31p,403b,192s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on build/tree_greedy.pdf (2 pages, 100326 bytes).
+Output written on build/tree_greedy.pdf (2 pages, 100550 bytes).
 PDF statistics:
  47 PDF objects out of 1000 (max. 8388607)
  33 compressed objects within 1 object stream
