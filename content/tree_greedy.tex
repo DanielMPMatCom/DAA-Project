@@ -1,11 +1,28 @@
 \documentclass[12pt]{article}
 \usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{listings}
+\usepackage{xcolor}
 
 \newtheorem{lemma}{Lemma}
 \newtheorem{proposition}{Proposition}
 \newtheorem{corollary}{Corollary}
-\usepackage{geometry}
-\geometry{a4paper, margin=1in}
+
+\lstset{
+    basicstyle=\ttfamily,
+    columns=fullflexible,
+    frame=single,
+    breaklines=true,
+    postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+}
+
+
+
+
+
+
+
 
 \title{Solución de subproblemas con estrategia Greedy}
 \author{}
@@ -15,12 +32,24 @@
 
 \maketitle
 
+En esta sección se expone la idea de los algoritmos Greedy para resolver el problema en dos casos particulares: cuando el grafo es un árbol y cuando es un bosque.
 
-\section{Algoritmos Greedy propuestos}
+\section{Caso en que el grafo es un árbol}
 
-\section{Demostración de correctitud}
 
-\subsection{Para el caso en que el grafo es un árbol}
+Dado un árbol \( T = (V,E) \) con pesos no negativos en sus aristas, la idea es aprovechar la propiedad de que, al remover \( k-1 \) aristas, el árbol se divide en \( k \) componentes conexas. El algoritmo Greedy consiste en:
+\begin{enumerate}
+    \item Ordenar las aristas del árbol en forma no decreciente según su peso.
+    \item Seleccionar las \( k-1 \) aristas de menor peso.
+\end{enumerate}
+\subsection{Análisis de Complejidad}
+\begin{itemize}
+    \item Ordenar las aristas requiere \( O(n \log n) \), donde \( n \) es el número de vértices (recordando que un árbol tiene \( n-1 \) aristas).
+    \item La selección de las \( k-1 \) aristas es \( O(k) \), lo cual es polinomial.
+\end{itemize}
+Por lo tanto, el algoritmo Greedy para árboles se resuelve en tiempo polinomial.
+
+\subsection{Demostración de Correctitud}
 
 Recordemos que, en un árbol, al eliminar ciertas aristas se incrementa el número de componentes conexas.
 
@@ -65,7 +94,35 @@ Esto contradice la hipótesis de que \( w(C') < w(C) \), por lo que \( C \) debe
 Sobre árboles, el problema se puede resolver en tiempo polinomial, ya que basta con ordenar las aristas (lo cual se puede hacer en tiempo \( O(n \log n) \)) y seleccionar las \( k-1 \) aristas de menor peso.
 \end{corollary}
 
-\subsection{Para el caso en que el grafo es un bosque}
+\subsection{Pseudocódigo}
+
+% \begin{verbatim}
+% Entrada: Árbol T = (V, E) con pesos no negativos, entero k
+% Salida: Conjunto de aristas C que forma un corte mínimo k
+
+% 1. Ordenar las aristas E de T en forma no decreciente según su peso: 
+%       w(e1) <= w(e2) <= ... <= w(e_{|V|-1})
+% 2. Seleccionar las primeras k-1 aristas de la lista ordenada y asignarlas a C.
+% 3. Retornar C.
+% \end{verbatim}
+
+
+\section{Caso en que el grafo es un bosque}
+Para un bosque \( F = (V,E) \) con \( t \) componentes conexas, la idea es similar. Se debe notar que, para obtener una partición en \( k \) componentes, es necesario remover \( k-t \) aristas, ya que el bosque ya cuenta con \( t \) componentes. El algoritmo Greedy consiste en:
+\begin{enumerate}
+    \item Ordenar todas las aristas del bosque en forma no decreciente según su peso.
+    \item Seleccionar las \( k-t \) aristas de menor peso.
+\end{enumerate}
+
+
+\subsection{Análisis de Complejidad}
+\begin{itemize}
+    \item Ordenar las aristas requiere \( O(|E| \log |E|) \); dado que el bosque tiene a lo sumo \( |V|-1 \) aristas, se cumple que es polinomial.
+    \item La selección de las \( k-t \) aristas es \( O(k) \).
+\end{itemize}
+Por lo tanto, este algoritmo también se ejecuta en tiempo polinomial.
+
+\subsection{Demostración de Correctitud}
 
 Consideremos ahora un bosque, es decir, un grafo disconexo cuyos componentes son árboles.
 
@@ -107,7 +164,23 @@ Por lo tanto, \( C \) es el conjunto de aristas de menor peso cuya eliminación 
 \end{proof}
 
 
-\section{Pseudocódigo}
+\subsection{Pseudocódigo}
+
+% \begin{verbatim}
+% Entrada: Bosque F = (V, E) con pesos no negativos, entero k, 
+%          donde t es el número de componentes conexas en F.
+% Salida: Conjunto de aristas C que forma un corte mínimo k en F
+
+% 1. Calcular t, el número de componentes conexas de F.
+% 2. Ordenar las aristas E de F en forma no decreciente según su peso:
+%       w(e1) <= w(e2) <= ... <= w(e_{|V|-?})
+% 3. Seleccionar las primeras k-t aristas de la lista ordenada y asignarlas a C.
+% 4. Retornar C.
+% \end{verbatim}
+
+
+
+
 
 
 
