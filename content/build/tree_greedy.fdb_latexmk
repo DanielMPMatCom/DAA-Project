@@ -1,8 +1,8 @@
 # Fdb version 3
-["pdflatex"] 1738875345 "/media/danielhp/DATA/Escuela/C. Computación/Cuarto Año/DAA/DAA-Project/content/tree_greedy.tex" "build/tree_greedy.pdf" "tree_greedy" 1738875345
+["pdflatex"] 1738875345 "/media/danielhp/DATA/Escuela/C. Computación/Cuarto Año/DAA/DAA-Project/content/tree_greedy.tex" "build/tree_greedy.pdf" "tree_greedy" 1738875426
   "/etc/texmf/web2c/texmf.cnf" 1680493193 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/home/danielhp/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1200.600pk" 1734926937 14040 5c62e5fd7f275e1911c30afa8b1f8ebf ""
-  "/media/danielhp/DATA/Escuela/C. Computación/Cuarto Año/DAA/DAA-Project/content/tree_greedy.tex" 1738875344 8298 ed55da9393dea466dd83c38c7299ad8e ""
+  "/media/danielhp/DATA/Escuela/C. Computación/Cuarto Año/DAA/DAA-Project/content/tree_greedy.tex" 1738875425 8298 ed55da9393dea466dd83c38c7299ad8e ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/tcrm1200.tfm" 1136768653 1536 74b7293ec3713bb7fdca8dd1bd1f469c ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
@@ -61,9 +61,9 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1581979058 38841 ce3692aa899bb693b90b87eaa5d4d84e ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1685568860 128028 f533b797fba58d231669ea19e894e23e ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1710446285 4850205 dce2d7021669d03cb436ec914d5b521e ""
-  "build/tree_greedy.aux" 1738875345 922 5a6927110c315375e7605386aac00d70 "pdflatex"
-  "tree_greedy.tex" 1738875344 8298 ed55da9393dea466dd83c38c7299ad8e ""
+  "build/tree_greedy.aux" 1738875425 922 5a6927110c315375e7605386aac00d70 "pdflatex"
+  "tree_greedy.tex" 1738875425 8298 ed55da9393dea466dd83c38c7299ad8e ""
   (generated)
-  "build/tree_greedy.aux"
-  "build/tree_greedy.pdf"
   "build/tree_greedy.log"
+  "build/tree_greedy.pdf"
+  "build/tree_greedy.aux"
