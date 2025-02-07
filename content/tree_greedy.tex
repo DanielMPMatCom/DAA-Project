@@ -1,47 +1,15 @@
-\documentclass[12pt]{article}
-\usepackage{amsmath, amssymb, amsthm}
-\usepackage{geometry}
-\geometry{a4paper, margin=1in}
-\usepackage{listings}
-\usepackage{xcolor}
-
-\newtheorem{lemma}{Lemma}
-\newtheorem{proposition}{Proposition}
-\newtheorem{corollary}{Corollary}
-
-\lstset{
-    basicstyle=\ttfamily,
-    columns=fullflexible,
-    frame=single,
-    breaklines=true,
-    postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
-}
-
-
-
-
-
-
-
-
-\title{Solución de subproblemas con estrategia Greedy}
-\author{}
-\date{}
-
-\begin{document}
-
 \maketitle
 
 En esta sección se expone la idea de los algoritmos Greedy para resolver el problema en dos casos particulares: cuando el grafo es un árbol y cuando es un bosque.
 
 \section{Caso en que el grafo es un árbol}
 
-
 Dado un árbol \( T = (V,E) \) con pesos no negativos en sus aristas, la idea es aprovechar la propiedad de que, al remover \( k-1 \) aristas, el árbol se divide en \( k \) componentes conexas. El algoritmo Greedy consiste en:
 \begin{enumerate}
     \item Ordenar las aristas del árbol en forma no decreciente según su peso.
     \item Seleccionar las \( k-1 \) aristas de menor peso.
 \end{enumerate}
+
 \subsection{Análisis de Complejidad}
 \begin{itemize}
     \item Ordenar las aristas requiere \( O(n \log n) \), donde \( n \) es el número de vértices (recordando que un árbol tiene \( n-1 \) aristas).
@@ -72,48 +40,25 @@ Por la hipótesis de inducción, removiendo \( n_1 - 1 \) aristas de \( T_1 \) s
 En total, removiendo \( 1 + (n_1 - 1) + (n_2 - 1) = n_1 + n_2 - 1 = k - 1 \) aristas, obtenemos \( n_1 + n_2 = k \) componentes conexas.  
 \end{proof}
 
-\begin{lemma}
-Sea \( T = (V, E) \) un árbol con pesos no negativos en sus aristas, y sea la lista de aristas ordenada de forma no decreciente según sus pesos:
-\[
-w(e_1) \le w(e_2) \le \dots \le w(e_{n-1}).
-\]
-Entonces, el conjunto de aristas de menor peso que separa el árbol en \( k \) componentes conexas está dado por:
-\[
-C = \{ e_1, e_2, \dots, e_{k-1} \}.
-\]
-\end{lemma}
-
-\begin{proof}
-Procedemos por contradicción. Supongamos que existe otro conjunto \( C' \) de \( k-1 \) aristas tal que el peso total \( w(C') \) es menor que \( w(C) \).  
-Sin embargo, al remover \( k-1 \) aristas de \( T \), por el resultado del lema anterior, el árbol se divide en \( k \) componentes conexas.  
-Como \( C \) está formado por las \( k-1 \) aristas de menor peso, cualquier otro conjunto \( C' \) de \( k-1 \) aristas necesariamente tendrá un peso total mayor o igual a \( w(C) \).  
-Esto contradice la hipótesis de que \( w(C') < w(C) \), por lo que \( C \) debe ser el conjunto deseado.
-\end{proof}
-
-\begin{corollary}
-Sobre árboles, el problema se puede resolver en tiempo polinomial, ya que basta con ordenar las aristas (lo cual se puede hacer en tiempo \( O(n \log n) \)) y seleccionar las \( k-1 \) aristas de menor peso.
-\end{corollary}
-
 \subsection{Pseudocódigo}
 
-% \begin{verbatim}
-% Entrada: Árbol T = (V, E) con pesos no negativos, entero k
-% Salida: Conjunto de aristas C que forma un corte mínimo k
+\begin{lstlisting}
+Entrada: Árbol T = (V, E) con pesos no negativos, entero k
+Salida: Conjunto de aristas C que forma un corte mínimo k
 
-% 1. Ordenar las aristas E de T en forma no decreciente según su peso: 
-%       w(e1) <= w(e2) <= ... <= w(e_{|V|-1})
-% 2. Seleccionar las primeras k-1 aristas de la lista ordenada y asignarlas a C.
-% 3. Retornar C.
-% \end{verbatim}
-
+1. Ordenar las aristas E de T en forma no decreciente según su peso: 
+      w(e1) <= w(e2) <= ... <= w(e_{|V|-1})
+2. Seleccionar las primeras k-1 aristas de la lista ordenada y asignarlas a C.
+3. Retornar C.
+\end{lstlisting}
 
 \section{Caso en que el grafo es un bosque}
+
 Para un bosque \( F = (V,E) \) con \( t \) componentes conexas, la idea es similar. Se debe notar que, para obtener una partición en \( k \) componentes, es necesario remover \( k-t \) aristas, ya que el bosque ya cuenta con \( t \) componentes. El algoritmo Greedy consiste en:
 \begin{enumerate}
     \item Ordenar todas las aristas del bosque en forma no decreciente según su peso.
     \item Seleccionar las \( k-t \) aristas de menor peso.
 \end{enumerate}
-
 
 \subsection{Análisis de Complejidad}
 \begin{itemize}
@@ -122,66 +67,16 @@ Para un bosque \( F = (V,E) \) con \( t \) componentes conexas, la idea es simil
 \end{itemize}
 Por lo tanto, este algoritmo también se ejecuta en tiempo polinomial.
 
-\subsection{Demostración de Correctitud}
-
-Consideremos ahora un bosque, es decir, un grafo disconexo cuyos componentes son árboles.
-
-\begin{proposition}
-Sea \( t \) el número de componentes conexas en un bosque \( F = (V, E) \). Para cualquier \( n \ge t \), si eliminamos \( (n-t) \) aristas del bosque, obtenemos \( n \) componentes conexas.
-\end{proposition}
-
-\begin{proof}
-Procedemos por inducción en \( n \).
-
-\textbf{Caso base:}  
-Si \( n = t \), no eliminamos ninguna arista, y el bosque ya tiene \( t \) componentes, lo que cumple la afirmación.
-
-\textbf{Hipótesis de inducción:}  
-Supongamos que para \( n = k-1 \) (con \( k-1 \ge t \)), removiendo \( (k-1 - t) \) aristas se obtienen \( k-1 \) componentes conexas.
-
-\textbf{Paso inductivo:}  
-Consideremos un bosque \( F \) y supongamos que removiendo \( (k-1-t) \) aristas se obtienen \( k-1 \) componentes conexas.  
-Ahora, removamos una arista adicional de uno de los árboles resultantes. Por el lema aplicado a árboles, al remover una arista de ese árbol se incrementa el número de componentes en 1.  
-Así, en total, removiendo \( (k-1-t) + 1 = k-t \) aristas, obtenemos \( k \) componentes conexas.  
-\end{proof}
-
-\begin{lemma}
-Sea \( F = (V, E) \) un bosque con pesos no negativos en sus aristas, y sean \( t \) el número de componentes conexas de \( F \) y las aristas ordenadas por la función de peso de forma no decreciente:
-\[
-w(e_1) \le w(e_2) \le \dots \le w(e_{|V|}).
-\]
-Entonces, el conjunto de aristas de menor peso cuya eliminación divide el bosque en \( k \) componentes conexas está dado por:
-\[
-C = \{ e_1, e_2, \dots, e_{k-t} \}.
-\]
-\end{lemma}
-
-\begin{proof}
-Supongamos, para obtener una contradicción, que existe un conjunto \( C' \) de aristas con \( |C'| < k-t \) y \( w(C') < w(C) \) que, al removerlas, divide el bosque en \( k \) componentes conexas.  
-Sin embargo, según la proposición anterior, remover menos de \( k-t \) aristas en un bosque con \( t \) componentes produce menos de \( k \) componentes conexas.  
-Esto contradice la definición de $C'$.  
-Por lo tanto, \( C \) es el conjunto de aristas de menor peso cuya eliminación divide \( F \) en \( k \) componentes conexas.
-\end{proof}
-
-
 \subsection{Pseudocódigo}
 
-% \begin{verbatim}
-% Entrada: Bosque F = (V, E) con pesos no negativos, entero k, 
-%          donde t es el número de componentes conexas en F.
-% Salida: Conjunto de aristas C que forma un corte mínimo k en F
+\begin{lstlisting}
+Entrada: Bosque F = (V, E) con pesos no negativos, entero k, 
+         donde t es el número de componentes conexas en F.
+Salida: Conjunto de aristas C que forma un corte mínimo k en F
 
-% 1. Calcular t, el número de componentes conexas de F.
-% 2. Ordenar las aristas E de F en forma no decreciente según su peso:
-%       w(e1) <= w(e2) <= ... <= w(e_{|V|-?})
-% 3. Seleccionar las primeras k-t aristas de la lista ordenada y asignarlas a C.
-% 4. Retornar C.
-% \end{verbatim}
-
-
-
-
-
-
-
-\end{document}
+1. Calcular t, el número de componentes conexas de F.
+2. Ordenar las aristas E de F en forma no decreciente según su peso:
+      w(e1) <= w(e2) <= ... <= w(e_{|V|-?})
+3. Seleccionar las primeras k-t aristas de la lista ordenada y asignarlas a C.
+4. Retornar C.
+\end{lstlisting}

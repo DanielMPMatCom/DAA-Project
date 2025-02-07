@@ -1,8 +1,0 @@
-\babel@toc {spanish}{}
-\contentsline {section}{\numberline {1}Demostración de que el problema de decisión es NP-Completo}{2}{section.1}%
-\contentsline {subsection}{\numberline {1.1}Pertenencia a NP}{2}{subsection.1.1}%
-\contentsline {subsection}{\numberline {1.2}NP-Hardness}{2}{subsection.1.2}%
-\contentsline {subsubsection}{\numberline {1.2.1}Reducción desde Clique Máximo}{3}{subsubsection.1.2.1}%
-\contentsline {subsection}{\numberline {1.3}NP-Completitud}{3}{subsection.1.3}%
-\contentsline {section}{\numberline {2}Demostración de que el problema de optimización es NP-Hard}{3}{section.2}%
-\contentsline {subsection}{\numberline {2.1}NP-Hardness}{3}{subsection.2.1}%

@@ -1,0 +1,57 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{fullpage}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+
+% Configuración extra de listings, etc.
+\lstset{
+    basicstyle=\ttfamily\small,
+    numbers=left,
+    stepnumber=1,
+    numbersep=10pt,
+    frame=single,
+    breaklines=true,
+    language=C,
+    captionpos=b,
+    tabsize=4,
+    showstringspaces=false,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{green!50!black},
+    stringstyle=\color{red},
+}
+
+\title{Optimización de Redes de Distribución
+Energética}
+
+\author{Daniel Machado Perez\\Ariel Gonzalez Gómez\\Alex Bas Beovides\\Leonardo Artiles Montero}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\input{problem_description}
+
+\hline{}
+\section{Demostración de NP-Completitud}
+\input{content/np_complete}
+
+%\hline  
+%\section{Algoritmo de aproximación con flujo}
+%\input{content/flow_aprox}
+
+\hline
+\section{Reducción a árboles y solución greedy}
+\input{content/tree_greedy}
+
+\hline
+\section{Reducción de la segunda parte del problema a árboles}
+\input{content/tree_dp}
+
+\end{document}

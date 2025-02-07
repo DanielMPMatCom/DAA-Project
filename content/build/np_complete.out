@@ -1,7 +1,0 @@
-\BOOKMARK [1][-]{section.1}{Demostraci\363n de que el problema de decisi\363n es NP-Completo}{}% 1
-\BOOKMARK [2][-]{subsection.1.1}{Pertenencia a NP}{section.1}% 2
-\BOOKMARK [2][-]{subsection.1.2}{NP-Hardness}{section.1}% 3
-\BOOKMARK [3][-]{subsubsection.1.2.1}{Reducci\363n desde Clique M\341ximo}{subsection.1.2}% 4
-\BOOKMARK [2][-]{subsection.1.3}{NP-Completitud}{section.1}% 5
-\BOOKMARK [1][-]{section.2}{Demostraci\363n de que el problema de optimizaci\363n es NP-Hard}{}% 6
-\BOOKMARK [2][-]{subsection.2.1}{NP-Hardness}{section.2}% 7
